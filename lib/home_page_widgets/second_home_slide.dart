@@ -23,7 +23,7 @@ class _SecondHomeSliderState extends State<SecondHomeSlider> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           gradient: LinearGradient(
-            colors: [Colors.grey.withOpacity(0.1  ), Colors.white],
+            colors: [Colors.grey.withOpacity(0.1), Colors.white],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -56,19 +56,26 @@ class _SecondHomeSliderState extends State<SecondHomeSlider> {
                             children: [
                               // Special Offer and Manaraj Sweet logo Area
                               Padding(
-                                padding: const EdgeInsets.only(top: 1, left: 10, right: 10),
+                                padding: const EdgeInsets.only(
+                                    top: 1, left: 10, right: 10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Image.asset("assets/images/manrajlogo.png", width: 55, height: 55),
-                                    Text("Special Offer", style: TextStyle(fontFamily: "italy", fontSize: 25)),
+                                    Image.asset("assets/images/manrajlogo.png",
+                                        width: 55, height: 55),
+                                    const Text("Special Offer",
+                                        style: TextStyle(
+                                            fontFamily: "italy", fontSize: 25)),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 1, left: 20),
+                                padding:
+                                    const EdgeInsets.only(top: 1, left: 20),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                       width: 60,
@@ -77,29 +84,37 @@ class _SecondHomeSliderState extends State<SecondHomeSlider> {
                                         borderRadius: BorderRadius.circular(10),
                                         color: bgColor2.withOpacity(0.2),
                                       ),
-                                      child: Center(
-                                        child: Text("50% Off", style: TextStyle(color: bgColor2, fontWeight: FontWeight.w600)),
+                                      child: const Center(
+                                        child: Text("50% Off",
+                                            style: TextStyle(
+                                                color: bgColor2,
+                                                fontWeight: FontWeight.w600)),
                                       ),
                                     ),
-                                    SizedBox(width: 5),
-                                    Text("on all orders", style: TextStyle(fontFamily: "poppins", fontSize: 10)),
+                                    const SizedBox(width: 5),
+                                    const Text("on all orders",
+                                        style: TextStyle(
+                                            fontFamily: "poppins",
+                                            fontSize: 10)),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 2, left: 20),
+                                padding:
+                                    const EdgeInsets.only(top: 2, left: 20),
                                 child: OutlinedButton(
                                   onPressed: () {},
                                   style: OutlinedButton.styleFrom(
                                     backgroundColor: Colors.white,
-                                    side: BorderSide(color: Colors.green),
-                                    minimumSize: Size(100, 32),
-                                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                                    side: const BorderSide(color: Colors.green),
+                                    minimumSize: const Size(100, 32),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6, vertical: 8),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(
@@ -122,6 +137,7 @@ class _SecondHomeSliderState extends State<SecondHomeSlider> {
                               )
                             ],
                           ),
+                          //images Gulab Jamun and Sponsor sign
                           Expanded(
                             child: Stack(
                               children: [
@@ -176,7 +192,7 @@ class _SecondHomeSliderState extends State<SecondHomeSlider> {
                   onDotClicked: (index) {
                     slideController.animateToPage(
                       index,
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       curve: Curves.bounceIn,
                     );
                   },

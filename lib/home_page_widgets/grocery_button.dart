@@ -11,21 +11,24 @@ class GroceryButton extends StatefulWidget {
 class _GroceryButtonState extends State<GroceryButton> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity, // Makes the button full width
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bgColor2,
-          shadowColor: bgColor2, // Add shadow color
-          elevation: 8, // Adjust the elevation for shadow effect
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.only(left: 20,right: 20),
+      child: SizedBox(
+        width: double.infinity, // Makes the button full width
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: bgColor2,
+            shadowColor: bgColor2, // Add shadow color
+            elevation: 8, // Adjust the elevation for shadow effect
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
-        ),
-        child: Text(
-          "Grocery",
-          style: TextStyle(fontFamily: "Poppins"),
+          child: Text(
+            "Grocery",
+            style: TextStyle(fontFamily: "Poppins",color: Colors.white,fontSize: 16),
+          ),
         ),
       ),
     );

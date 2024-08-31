@@ -4,13 +4,21 @@ import 'package:work_design/utils/colors.dart';
 import '../home_page_widgets/home_Content.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0; // Tracks the selected tab
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Update the selected index
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +30,10 @@ class _HomePageState extends State<HomePage> {
           height: 50,
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(top: 10,left: 20,bottom: 10),
+          padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
           child: Container(
-            width: 40, // Adjust size as needed
-            height: 40, // Adjust size as needed
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white,
@@ -80,12 +88,93 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: const [
-          HomeContentBar(),
-        ],
+      body:  HomeContentBar(),
+      floatingActionButton: Container(
+        width: 90,
+        height: 90,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: bgColor2.withOpacity(0.4),
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: bgColor2,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
+                    onPressed: () {
+                      // Handle button press
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.home,
+                    color: _selectedIndex == 0 ? bgColor2 : Colors.black87,
+                    size: 20,
+                  ),
+                  onPressed: () => _onItemTapped(0),
+                ),
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.bookOpen,
+                    color: _selectedIndex == 1 ? bgColor2 : Colors.black87,
+                  ),
+                  onPressed: () => _onItemTapped(1),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.shoppingCart,
+                    color: _selectedIndex == 2 ? bgColor2 : Colors.black87,
+                  ),
+                  onPressed: () => _onItemTapped(2),
+                ),
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.user,
+                    color: _selectedIndex == 3 ? bgColor2 : Colors.black87,
+                  ),
+                  onPressed: () => _onItemTapped(3),
+                ),
+              ],
+            ),
+          ],
+        ),
+        color: Colors.white, // Background color of the BottomAppBar
+        shape: CircularNotchedRectangle(), // To create a notch for FloatingActionButton
+      ),
+
     );
   }
 }

@@ -1,0 +1,27 @@
+const List<Map> listItems=[
+  {
+    "pName":"BC",
+    "rate":"20"
+  },{
+    "pName":"SK",
+    "rate":"20"
+  },{
+    "pName":"QC",
+    "rate":"20"
+  },{
+    "pName":"AB",
+    "rate":"20"
+  },{
+    "pName":"PE",
+    "rate":"20"
+  },{
+    "pName":"OT",
+    "rate":"20"
+  },{
+    "pName":"QC",
+    "rate":"20"
+  },{
+    "pName":"DB",
+    "rate":"20"
+  },
+];
