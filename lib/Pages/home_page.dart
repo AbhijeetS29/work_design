@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:work_design/utils/colors.dart';
 import '../home_page_widgets/home_Content.dart';
 
@@ -11,13 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; // Tracks the selected tab
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Update the selected index
-    });
-  }
+  int selected = 0;
+  bool heart = false;
+  final PageController controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +24,8 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: Image.asset(
           "assets/images/logo.png",
-          width: 50,
-          height: 50,
+          width: 70,
+          height: 70,
         ),
         leading: Padding(
           padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
@@ -49,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             child: const Center(
               child: Icon(
                 color: bgColor2,
-                FontAwesomeIcons.hamburger,
+                FontAwesomeIcons.navicon,
                 size: 22,
               ),
             ),
@@ -58,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              // Define action for wallet icon button
+              // Working of wallet icon
             },
             icon: const Icon(
               FontAwesomeIcons.wallet,
@@ -68,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () {
-              // Define action for language icon button
+              // Working of language icon
             },
             icon: const Icon(
               FontAwesomeIcons.language,
@@ -78,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () {
-              // Define action for bell icon button
+              // Working of bell icon
             },
             icon: const Icon(
               FontAwesomeIcons.bell,
@@ -88,7 +86,95 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body:  HomeContentBar(),
+      body: PageView(
+        controller: controller,
+        onPageChanged: (index) {
+          setState(() {
+            selected = index;
+          });
+        },
+        children: [
+          HomeContentBar(),
+          Center(child: Text('Star Page Content')),
+          Center(child: Text('Style Page Content')),
+          Center(child: Text('Profile Page Content')),
+        ],
+      ),
+      bottomNavigationBar: StylishBottomBar(
+        option: AnimatedBarOptions(
+          iconSize: 30,
+          barAnimation: BarAnimation.blink,
+          iconStyle: IconStyle.animated,
+          opacity: 0.3,
+        ),
+        items: [
+          BottomBarItem(
+            icon: const Icon(FontAwesomeIcons.house, size: 20),
+            selectedIcon: const Icon(FontAwesomeIcons.house, color: bgColor2),
+            selectedColor: bgColor2,
+            unSelectedColor: Colors.grey,
+            title: const Text('Home',
+                style: TextStyle(fontFamily: 'poppins', fontSize: 10)),
+          ),
+          BottomBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: Icon(Icons.book, size: 20),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.only(right: 30),
+              child: Icon(Icons.book, size: 20),
+            ),
+            selectedColor: Colors.red,
+            unSelectedColor: Colors.grey,
+            title: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: const Text('Manual',
+                  style: TextStyle(fontFamily: 'poppins', fontSize: 10)),
+            ),
+          ),
+          BottomBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: const Icon(Icons.bar_chart_rounded),
+            ),
+            selectedIcon: Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: const Icon(Icons.bar_chart_rounded,
+                  color: Colors.deepOrangeAccent),
+            ),
+            selectedColor: Colors.deepOrangeAccent,
+            unSelectedColor: Colors.grey,
+            title: Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: const Text('Stats',
+                  style: TextStyle(fontFamily: 'poppins', fontSize: 10)),
+            ),
+          ),
+          BottomBarItem(
+            icon: const Icon(
+              FontAwesomeIcons.rankingStar,
+              size: 24,
+            ),
+            selectedIcon: const Icon(FontAwesomeIcons.rankingStar,
+                color: Colors.deepOrangeAccent),
+            selectedColor: Colors.deepOrangeAccent,
+            unSelectedColor: Colors.grey,
+            title: const Text(
+              'Giveaway',
+              style: TextStyle(fontFamily: 'poppins', fontSize: 10),
+            ),
+          ),
+        ],
+        fabLocation: StylishBarFabLocation.center,
+        currentIndex: selected,
+        onTap: (index) {
+          setState(() {
+            selected = index;
+          });
+          controller.jumpToPage(index);
+        },
+      ),
       floatingActionButton: Container(
         width: 90,
         height: 90,
@@ -116,7 +202,8 @@ class _HomePageState extends State<HomePage> {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
+                    icon: const Icon(Icons.qr_code_scanner_outlined,
+                        color: Colors.white),
                     onPressed: () {
                       // Handle button press
                     },
@@ -128,53 +215,95 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.home,
-                    color: _selectedIndex == 0 ? bgColor2 : Colors.black87,
-                    size: 20,
-                  ),
-                  onPressed: () => _onItemTapped(0),
-                ),
-                IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.bookOpen,
-                    color: _selectedIndex == 1 ? bgColor2 : Colors.black87,
-                  ),
-                  onPressed: () => _onItemTapped(1),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.shoppingCart,
-                    color: _selectedIndex == 2 ? bgColor2 : Colors.black87,
-                  ),
-                  onPressed: () => _onItemTapped(2),
-                ),
-                IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.user,
-                    color: _selectedIndex == 3 ? bgColor2 : Colors.black87,
-                  ),
-                  onPressed: () => _onItemTapped(3),
-                ),
-              ],
-            ),
-          ],
-        ),
-        color: Colors.white, // Background color of the BottomAppBar
-        shape: CircularNotchedRectangle(), // To create a notch for FloatingActionButton
-      ),
-
     );
   }
 }
+
+// floatingActionButton: Container(
+//   width: 90,
+//   height: 90,
+//   decoration: BoxDecoration(
+//     color: Colors.white,
+//     shape: BoxShape.circle,
+//   ),
+//   child: Center(
+//     child: Padding(
+//       padding: const EdgeInsets.all(3.0),
+//       child: Container(
+//         width: 80,
+//         height: 80,
+//         decoration: BoxDecoration(
+//           color: bgColor2.withOpacity(0.4),
+//           shape: BoxShape.circle,
+//         ),
+//         child: Padding(
+//           padding: const EdgeInsets.all(5.0),
+//           child: Container(
+//             width: 70,
+//             height: 70,
+//             decoration: BoxDecoration(
+//               color: bgColor2,
+//               shape: BoxShape.circle,
+//             ),
+//             child: IconButton(
+//               icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
+//               onPressed: () {
+//                 // Handle button press
+//               },
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//   ),
+// ),
+// floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+// bottomNavigationBar: BottomAppBar(
+//   child: Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     children: [
+//       Row(
+//         children: [
+//           IconButton(
+//             icon: Icon(
+//               FontAwesomeIcons.home,
+//               color: _selectedIndex == 0 ? bgColor2 : Colors.black87,
+//               size: 20,
+//             ),
+//             onPressed: () => _onItemTapped(0),
+//           ),
+//           IconButton(
+//             icon: Icon(
+//               FontAwesomeIcons.bookOpen,
+//               color: _selectedIndex == 1 ? bgColor2 : Colors.black87,
+//             ),
+//             onPressed: () => _onItemTapped(1),
+//           ),
+//         ],
+//       ),
+//       Row(
+//         children: [
+//           IconButton(
+//             icon: Icon(
+//               FontAwesomeIcons.shoppingCart,
+//               color: _selectedIndex == 2 ? bgColor2 : Colors.black87,
+//
+//             ),
+//             onPressed: () => _onItemTapped(2),
+//
+//
+//           ),
+//           IconButton(
+//             icon: Icon(
+//               FontAwesomeIcons.user,
+//               color: _selectedIndex == 3 ? bgColor2 : Colors.black87,
+//             ),
+//             onPressed: () => _onItemTapped(3),
+//           ),
+//         ],
+//       ),
+//     ],
+//   ),
+//   // color: Colors.white, // Background color of the BottomAppBar
+//   // shape: CircularNotchedRectangle(), // To create a notch for FloatingActionButton
+// ),
